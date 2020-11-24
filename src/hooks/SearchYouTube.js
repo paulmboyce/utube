@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { youTubeApiAxios, KEY } from "../api/YouTubeApiAxios";
 
-const SearchYouTube = ({ term, handleSearchResults, onError }) => {
+const SearchYouTube = ({ term, onResults, onError }) => {
 	useEffect(() => {
 		console.log("Call API *ONLY* when search term changes..");
 		searchVideosFromYouTubeAxios();
@@ -20,7 +20,7 @@ const SearchYouTube = ({ term, handleSearchResults, onError }) => {
 				},
 			})
 			.then(function (response) {
-				handleSearchResults(response.data.items);
+				onResults(response.data.items);
 			})
 			.catch((err) => {
 				onError(err.message);

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import VideoList from "./VideoList";
 import FeatureVideo from "./FeatureVideo";
 import "./App.css";
-import SearchYouTube from "./SearchYouTube";
+import SearchYouTube from "../hooks/SearchYouTube";
 
 const App = () => {
 	const [videos, setVideos] = useState([]);
@@ -18,20 +18,15 @@ const App = () => {
 		return videos ? videos[0] : {};
 	};
 
-	const handleSearchResults = (videoList) => {
+	useEffect(() => {
 		setFeatureVideo(null); // reset featured video
-		setVideos(videoList);
-	};
+	}, [videos]);
 
 	return (
 		<div className="ui grid container">
 			<div className="ui sixteen wide column">
 				<SearchBar doSearchAction={setTerm} initialInput={term} />
-				<SearchYouTube
-					term={term}
-					handleSearchResults={handleSearchResults}
-					onError={setError}
-				/>
+				<SearchYouTube term={term} onResults={setVideos} onError={setError} />
 			</div>
 			{error ? (
 				<div className="error">{error}</div>
