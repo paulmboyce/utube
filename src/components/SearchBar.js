@@ -3,14 +3,9 @@ import React, { useState } from "react";
 const SearchBar = ({ doSearchAction, initialInput }) => {
 	const [input, setInput] = useState(initialInput);
 
-	const handleSubmitForm = (evt) => {
-		evt.preventDefault();
-		console.log(`SUBMIT Search for: ${input}`);
+	const handleSubmitForm = (e) => {
+		e.preventDefault();
 		doSearchAction(input);
-	};
-
-	const handleChangeInput = (evt) => {
-		setInput(evt.target.value);
 	};
 
 	return (
@@ -23,7 +18,9 @@ const SearchBar = ({ doSearchAction, initialInput }) => {
 							value={input}
 							type="text"
 							placeholder="Enter your search..."
-							onChange={handleChangeInput}
+							onChange={(e) => {
+								setInput(e.target.value);
+							}}
 						/>
 						<i className="search icon"></i>
 					</div>
