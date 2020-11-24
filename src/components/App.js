@@ -3,7 +3,7 @@ import SearchBar from "./SearchBar";
 import VideoList from "./VideoList";
 import FeatureVideo from "./FeatureVideo";
 import "./App.css";
-import SearchYouTube from "../hooks/SearchYouTube";
+import useYouTubeSearch from "../hooks/useYouTubeSearch";
 
 const App = () => {
 	const [videos, setVideos] = useState([]);
@@ -22,11 +22,12 @@ const App = () => {
 		setFeatureVideo(null); // reset featured video
 	}, [videos]);
 
+	useYouTubeSearch(term, setVideos, setError);
+
 	return (
 		<div className="ui grid container">
 			<div className="ui sixteen wide column">
 				<SearchBar doSearchAction={setTerm} initialInput={term} />
-				<SearchYouTube term={term} onResults={setVideos} onError={setError} />
 			</div>
 			{error ? (
 				<div className="error">{error}</div>

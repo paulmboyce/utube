@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { youTubeApiAxios, KEY } from "../api/YouTubeApiAxios";
 
-const SearchYouTube = ({ term, onResults, onError }) => {
+const useYouTubeSearch = (term, onResults, onError) => {
 	useEffect(() => {
 		console.log("Call API *ONLY* when search term changes..");
 		searchVideosFromYouTubeAxios();
@@ -26,7 +26,6 @@ const SearchYouTube = ({ term, onResults, onError }) => {
 				onError(err.message);
 			});
 	};
-	return null;
 };
 
-export default SearchYouTube;
+export default useYouTubeSearch;
