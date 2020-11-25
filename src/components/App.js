@@ -6,10 +6,10 @@ import "./App.css";
 import useYouTubeSearch from "../hooks/useYouTubeSearch";
 
 const App = () => {
-	const [videos, setVideos] = useState([]);
 	const [featureVideo, setFeatureVideo] = useState(null);
 	const [term, setTerm] = useState("fun fun function");
 	const [error, setError] = useState(null);
+	const [searchErr, videos, doSearch] = useYouTubeSearch(term);
 
 	const getFeatureVideo = () => {
 		if (featureVideo) {
@@ -19,11 +19,18 @@ const App = () => {
 	};
 
 	useEffect(() => {
+		console.log("Call API *ONLY* when search term changes..");
+		doSearch(term);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [term]);
+
+	useEffect(() => {
 		setFeatureVideo(null); // reset featured video
 	}, [videos]);
 
-	useYouTubeSearch(term, setVideos, setError);
-
+	useEffect(() => {
+		setError(searchErr);
+	}, [searchErr]);
 	return (
 		<div className="ui grid container">
 			<div className="ui sixteen wide column">

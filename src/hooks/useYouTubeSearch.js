@@ -1,14 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { youTubeApiAxios, KEY } from "../api/YouTubeApiAxios";
 
-const useYouTubeSearch = (term, onResults, onError) => {
+const useYouTubeSearch = (defaultTerm) => {
+	const [videos, setVideos] = useState([]);
+	const [error, setError] = useState(null);
 	useEffect(() => {
-		console.log("Call API *ONLY* when search term changes..");
-		searchVideosFromYouTubeAxios();
+		doSearch(defaultTerm);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [term]);
+	}, []);
 
-	const searchVideosFromYouTubeAxios = () => {
+	const doSearch = (term) => {
 		youTubeApiAxios
 			.get("/search", {
 				params: {
@@ -19,13 +20,17 @@ const useYouTubeSearch = (term, onResults, onError) => {
 					q: term,
 				},
 			})
-			.then(function (response) {
-				onResults(response.data.items);
+			.then(function ({ data }) {
+				setVideos(data.items);
 			})
 			.catch((err) => {
-				onError(err.message);
+				console.log("OOPS!! This error should reject/throw to the caller", err);
+				setError(err.message);
+				throw err;
 			});
 	};
+
+	return [error, videos, doSearch]; // Array is React convention.
 };
 
 export default useYouTubeSearch;
