@@ -7,7 +7,7 @@ import useYouTubeSearch from "../hooks/useYouTubeSearch";
 
 const App = () => {
 	const [featureVideo, setFeatureVideo] = useState(null);
-	const [term, setTerm] = useState("tai chi lisbon");
+	const [term, setTerm] = useState("surfing lisbon");
 	const [error, setError] = useState(null);
 	const [searchErr, videos, doSearch] = useYouTubeSearch(term);
 
