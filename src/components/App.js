@@ -11,13 +11,6 @@ const App = () => {
 	const [error, setError] = useState(null);
 	const [searchErr, videos, doSearch] = useYouTubeSearch(term);
 
-	const getFeatureVideo = () => {
-		if (featureVideo) {
-			return featureVideo;
-		}
-		return videos ? videos[0] : {};
-	};
-
 	useEffect(() => {
 		console.log("Call API *ONLY* when search term changes..");
 		doSearch(term);
@@ -25,7 +18,7 @@ const App = () => {
 	}, [term]);
 
 	useEffect(() => {
-		setFeatureVideo(null); // reset featured video
+		setFeatureVideo(videos[0]); // reset featured video
 	}, [videos]);
 
 	useEffect(() => {
@@ -41,7 +34,7 @@ const App = () => {
 			) : (
 				<React.Fragment>
 					<div className="ui twelve wide column">
-						<FeatureVideo video={getFeatureVideo()} />
+						<FeatureVideo video={featureVideo} />
 					</div>
 					<div className="ui four wide column">
 						<VideoList videos={videos} setFeatureVideo={setFeatureVideo} />
