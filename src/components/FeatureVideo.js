@@ -13,6 +13,11 @@ class FeatureVideo extends React.Component {
 						<iframe
 							title="Featured Video"
 							src={this.formatYouTubelink()}
+							allowfullscreen="allowfullscreen"
+							mozallowfullscreen="mozallowfullscreen" 
+        						msallowfullscreen="msallowfullscreen" 
+ 							oallowfullscreen="oallowfullscreen" 
+  							webkitallowfullscreen="webkitallowfullscreen"
 						></iframe>
 					</div>
 					<div className="ui segment">
